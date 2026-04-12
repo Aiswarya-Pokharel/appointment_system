@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Appointment</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.datatables.net/2.3.7/css/dataTables.bootstrap5.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f4f6fb;
+      font-family: Arial, sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 30px 0;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-primary {
+      border-radius: 8px;
+      padding: 8px 16px;
+    }
+
+    table {
+      margin-top: 20px;
+    }
+
+    table thead {
+      background: #0d6efd;
+      color: white;
+    }
+
+    table tbody tr:hover {
+      background: #f1f5ff;
+    }
+
+    a {
+      text-decoration: none;
+      margin-right: 10px;
+      font-weight: 500;
+    }
+
+    a:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Appointments</h2>
+
+  <div class="container">
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      + Add Appointments
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Add Appointments</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+
+          <form action="/insert/" method="POST">
+            <div class="modal-body">
+
+              {% csrf_token %}
+
+              <div class="mb-3">
+                <label class="form-label">name</label>
+                <input type="text" class="form-control" name="name">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">date</label>
+                <input type="date" class="form-control" name="date">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">time</label>
+                <input type="time" class="form-control" name="time">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">reason</label>
+                <input type="text" class="form-control" name="reason">
+              </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <table id="example" class="table table-striped table-hover border rounded">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Reason</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for row in datas %}
+        <tr>
+          <td>{{ row.1 }}</td>
+          <td>{{ row.2 }}</td>
+          <td>{{ row.3 }}</td>
+          <td>{{ row.4 }}</td>
+          <td>
+            <a href="/edit/{{row.0}}" class="text-primary">Edit</a>
+            <a href="/delete/{{row.0}}" class="text-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/2.3.7/js/dataTables.js"></script>
+
+  <script>
+    new DataTable('#example');
+  </script>
+
+</body>
+
+</html>
