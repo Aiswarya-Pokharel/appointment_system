@@ -1,10 +1,13 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import redirect
 import json
-from .db import get_connection, create_table
 
-create_table()
+from .db import get_connection
+
+
+def index(request):
+    return JsonResponse({"message": "Appointment API is running"})
+
 
 def appointments_list(request):
     conn = get_connection()
@@ -13,8 +16,12 @@ def appointments_list(request):
     rows = cur.fetchall()
     cur.close()
     conn.close()
-    data = [{"id": r[0], "name": r[1], "date": str(r[2]), "time": str(r[3]), "reason": r[4]} for r in rows]
+    data = [
+        {"id": r[0], "name": r[1], "date": str(r[2]), "time": str(r[3]), "reason": r[4]}
+        for r in rows
+    ]
     return JsonResponse(data, safe=False)
+
 
 @csrf_exempt
 def insert(request):
@@ -32,6 +39,7 @@ def insert(request):
         return JsonResponse({"success": True})
     return JsonResponse({"error": "POST required"}, status=405)
 
+
 @csrf_exempt
 def delete_appointment(request, id):
     conn = get_connection()
@@ -41,6 +49,7 @@ def delete_appointment(request, id):
     cur.close()
     conn.close()
     return JsonResponse({"success": True})
+
 
 @csrf_exempt
 def edit_appointment(request, id):
@@ -61,7 +70,3 @@ def edit_appointment(request, id):
     cur.close()
     conn.close()
     return JsonResponse({"id": r[0], "name": r[1], "date": str(r[2]), "time": str(r[3]), "reason": r[4]})
-
-def index(request):
-    from django.shortcuts import render
-    return render(request, "index.html")

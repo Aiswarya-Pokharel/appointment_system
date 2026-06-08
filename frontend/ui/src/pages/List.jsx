@@ -85,7 +85,7 @@ export default function List({ onEdit }) {
           onClick={() => setShowForm(!showForm)}
           className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-5 py-2 rounded-lg text-sm transition"
         >
-          {showForm ? "✕ Cancel" : "+ New Appointment"}
+          {showForm ? "Cancel" : "New Appointment"}
         </button>
       </div>
 
