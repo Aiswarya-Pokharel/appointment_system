@@ -5,6 +5,7 @@ A full-stack appointment management system built with Django REST Framework and 
 ## 🛠️ Tech Stack
 
 **Backend**
+
 - Python 3.12
 - Django 5.x
 - Django REST Framework
@@ -12,6 +13,7 @@ A full-stack appointment management system built with Django REST Framework and 
 - Docker
 
 **Frontend**
+
 - React 19
 - Vite
 - Tailwind CSS v4
@@ -22,7 +24,7 @@ A full-stack appointment management system built with Django REST Framework and 
 appointment_system/
 ├── .github/
 │   └── workflows/
-│       └── python.yml       # CI/CD pipeline
+│       └── appointment.yml       # CI/CD pipeline
 ├── appointment_project/     # Django project settings
 │   ├── settings.py
 │   ├── urls.py
@@ -43,10 +45,11 @@ appointment_system/
 ## ⚙️ Getting Started
 
 ### Prerequisites
+
 - Python 3.12+
 - Node.js 20+
 - PostgreSQL
-- Docker (optional)
+- Docker
 
 ---
 
@@ -108,24 +111,6 @@ docker-compose up --build
 docker-compose up -d
 ```
 
----
-
-## 🔧 Environment Variables
-
-Create a `.env` file in the root directory based on `.env.example`:
-
-```env
-DB_NAME=your_db_name
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_HOST=localhost
-DB_PORT=5432
-```
-
-> ⚠️ Never commit your `.env` file. It is listed in `.gitignore`.
-
----
-
 ## 🧪 Running Tests
 
 ```bash
@@ -139,6 +124,7 @@ CI runs automatically on every push via GitHub Actions.
 ## 🚀 CI/CD
 
 This project uses GitHub Actions for continuous integration:
+
 - ✅ Installs Python dependencies
 - ✅ Spins up a PostgreSQL service
 - ✅ Runs Django tests on every push
